@@ -1,5 +1,8 @@
 
-Binaries/
+Binaries/**/*
+!Binaries/Win64/
+!Binaries/Win64/*.dll
+!Binaries/Win64/*.modules
 Intermediate/
 Saved/
 DerivedDataCache/
@@ -11,8 +14,14 @@ DerivedDataCache/
 *.pdb
 *.db
 *.opendb
+*.vsconfig
+*.htm
 
 Plugins/*/Intermediate/
+Plugins/**/Binaries/**/*
+!Plugins/**/Binaries/Win64/
+!Plugins/**/Binaries/Win64/*.dll
+!Plugins/**/Binaries/Win64/*.modules
 
 Build/
 LocalBuilds/
