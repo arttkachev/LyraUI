@@ -5,6 +5,7 @@
 #include "DataRegistrySubsystem.h"
 #include "LyraLogChannels.h"
 #include "Messages/LyraNotificationMessage.h"
+#include "Accolades/AccoladeToastBase.h"
 #include "Sound/SoundBase.h"
 #include "TimerManager.h"
 
@@ -72,6 +73,7 @@ void ULyraAccoladeHostWidget::OnRegistryLoadCompleted(const FDataRegistryAcquire
 		TArray<FSoftObjectPath> AssetsToLoad;
 		AssetsToLoad.Add(AccoladeRow->Sound.ToSoftObjectPath());
 		AssetsToLoad.Add(AccoladeRow->Icon.ToSoftObjectPath());
+		AssetsToLoad.Add(AccoladeRow->WidgetTemplate.ToSoftObjectPath());
 		AsyncLoad(AssetsToLoad, [this, SequenceID]
 		{
 			FPendingAccoladeEntry* EntryThatFinishedLoading = PendingAccoladeLoads.FindByPredicate([SequenceID](const FPendingAccoladeEntry& Entry) { return Entry.SequenceID == SequenceID; });
@@ -79,6 +81,7 @@ void ULyraAccoladeHostWidget::OnRegistryLoadCompleted(const FDataRegistryAcquire
 			{
 				EntryThatFinishedLoading->Sound = EntryThatFinishedLoading->Row.Sound.Get();
 				EntryThatFinishedLoading->Icon = EntryThatFinishedLoading->Row.Icon.Get();
+				EntryThatFinishedLoading->WidgetTemplate = EntryThatFinishedLoading->Row.WidgetTemplate.Get();
 				EntryThatFinishedLoading->bFinishedLoading = true;
 				ConsiderLoadedAccolades();
 			}

@@ -12,6 +12,7 @@
 class UObject;
 class USoundBase;
 class UUserWidget;
+class UAccoladeToastBase;
 struct FDataRegistryAcquireResult;
 struct FLyraNotificationMessage;
 
@@ -21,10 +22,13 @@ struct FPendingAccoladeEntry
 	GENERATED_BODY();
 
 	UPROPERTY(BlueprintReadOnly)
-	FLyraAccoladeDefinitionRow Row; 
+	FLyraAccoladeDefinitionRow Row;	
 
 	UPROPERTY(BlueprintReadOnly)
 	TObjectPtr<USoundBase> Sound = nullptr;
+
+	UPROPERTY(BlueprintReadOnly)
+	TSubclassOf<UAccoladeToastBase> WidgetTemplate = nullptr;
 
 	UPROPERTY(BlueprintReadOnly)
 	TObjectPtr<UObject> Icon = nullptr;
@@ -62,6 +66,10 @@ public:
 
 	UFUNCTION(BlueprintImplementableEvent)
 	UUserWidget* CreateAccoladeWidget(const FPendingAccoladeEntry& Entry);
+
+protected:
+	UPROPERTY(BlueprintReadWrite, Category = "AccoladeWidgetPool")
+	TMap<TObjectPtr<UClass>, TObjectPtr<UAccoladeToastBase>> AccoladeWidgetPool;
 private:
 	FGameplayMessageListenerHandle ListenerHandle;
 

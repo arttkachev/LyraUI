@@ -10,6 +10,7 @@
 
 class UObject;
 class USoundBase;
+class UAccoladeToastBase;
 
 USTRUCT(BlueprintType)
 struct FLyraAccoladeDefinitionRow : public FTableRowBase
@@ -24,6 +25,10 @@ public:
 	// The sound to play
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	TSoftObjectPtr<USoundBase> Sound;
+
+	// Accolade widget template to use
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	TSoftClassPtr<UAccoladeToastBase> WidgetTemplate;
 
 	// The icon to display	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(DisplayThumbnail="true", AllowedClasses="/Script/Engine.Texture,/Script/Engine.MaterialInterface,/Script/Engine.SlateTextureAtlasInterface", DisallowedClasses="/Script/MediaAssets.MediaTexture"))

@@ -7,7 +7,7 @@
 struct FLyraVerbMessage;
 
 UCLASS()
-class SHOOTERCORERUNTIME_API UElimEnemyProcessor : public UGameplayMessageProcessor
+class UElimEnemyProcessor : public UGameplayMessageProcessor
 {
 	GENERATED_BODY()
 

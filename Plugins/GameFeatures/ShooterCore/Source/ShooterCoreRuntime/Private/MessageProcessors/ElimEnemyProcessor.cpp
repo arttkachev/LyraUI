@@ -3,7 +3,6 @@
 #include "GameFramework/PlayerState.h"
 #include "Messages/LyraVerbMessage.h"
 #include "NativeGameplayTags.h"
-#include "Kismet/GameplayStatics.h"
 
 namespace EnemyElim
 {
@@ -28,11 +27,10 @@ void UElimEnemyProcessor::OnEnemyEliminationMessage(FGameplayTag Channel, const 
 		return;
 	}
 	const auto PS = PC->PlayerState;
-	if (PC->PlayerState != Payload.Instigator)
+	if (PC->PlayerState != Payload.Instigator || PC->PlayerState == Payload.Target)
 	{
 		return;
-	} 
-	UKismetSystemLibrary::PrintString(this, TEXT("Kill!!!!!"), true, true, FLinearColor::Red);
+	}
 	FLyraVerbMessage ElimEnemeyMessage;
 	ElimEnemeyMessage.Verb = AccoladeElimEnemyTag;
 	ElimEnemeyMessage.Instigator = Payload.Instigator;
