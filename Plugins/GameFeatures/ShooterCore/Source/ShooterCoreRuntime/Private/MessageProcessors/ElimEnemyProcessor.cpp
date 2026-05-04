@@ -17,26 +17,26 @@ void UElimEnemyProcessor::StartListening()
 
 void UElimEnemyProcessor::OnEnemyEliminationMessage(FGameplayTag Channel, const FLyraVerbMessage& Payload)
 {
-	if (!AccoladeElimEnemyTag.IsValid())
-	{
-		return;
-	}
-	const auto PC = GetWorld()->GetFirstPlayerController();
-	if (!PC)
-	{
-		return;
-	}
-	const auto PS = PC->PlayerState;
-	if (PC->PlayerState != Payload.Instigator || PC->PlayerState == Payload.Target)
-	{
-		return;
-	}
-	FLyraVerbMessage ElimEnemeyMessage;
-	ElimEnemeyMessage.Verb = AccoladeElimEnemyTag;
-	ElimEnemeyMessage.Instigator = Payload.Instigator;
-	ElimEnemeyMessage.InstigatorTags = Payload.InstigatorTags;
-	ElimEnemeyMessage.ContextTags = Payload.ContextTags;
-	ElimEnemeyMessage.Magnitude = 1.0;
-	UGameplayMessageSubsystem& MessageSubsystem = UGameplayMessageSubsystem::Get(this);
-	MessageSubsystem.BroadcastMessage(ElimEnemeyMessage.Verb, ElimEnemeyMessage);
+  if (!AccoladeElimEnemyTag.IsValid())
+  {
+    return;
+  }
+  const auto PC = GetWorld()->GetFirstPlayerController();
+  if (!PC)
+  {
+    return;
+  }
+  const auto PS = PC->PlayerState;
+  if (PC->PlayerState != Payload.Instigator || PC->PlayerState == Payload.Target)
+  {
+    return;
+  }
+  FLyraVerbMessage ElimEnemeyMessage;
+  ElimEnemeyMessage.Verb = AccoladeElimEnemyTag;
+  ElimEnemeyMessage.Instigator = Payload.Instigator;
+  ElimEnemeyMessage.InstigatorTags = Payload.InstigatorTags;
+  ElimEnemeyMessage.ContextTags = Payload.ContextTags;
+  ElimEnemeyMessage.Magnitude = 1.0;
+  UGameplayMessageSubsystem& MessageSubsystem = UGameplayMessageSubsystem::Get(this);
+  MessageSubsystem.BroadcastMessage(ElimEnemeyMessage.Verb, ElimEnemeyMessage);
 }

@@ -19,80 +19,80 @@ struct FLyraNotificationMessage;
 USTRUCT(BlueprintType)
 struct FPendingAccoladeEntry
 {
-	GENERATED_BODY();
+  GENERATED_BODY();
 
-	UPROPERTY(BlueprintReadOnly)
-	FLyraAccoladeDefinitionRow Row;	
+  UPROPERTY(BlueprintReadOnly)
+  FLyraAccoladeDefinitionRow Row;
 
-	UPROPERTY(BlueprintReadOnly)
-	TObjectPtr<USoundBase> Sound = nullptr;
+  UPROPERTY(BlueprintReadOnly)
+  TObjectPtr<USoundBase> Sound = nullptr;
 
-	UPROPERTY(BlueprintReadOnly)
-	TSubclassOf<UAccoladeToastBase> WidgetTemplate = nullptr;
+  UPROPERTY(BlueprintReadOnly)
+  TSubclassOf<UAccoladeToastBase> WidgetTemplate = nullptr;
 
-	UPROPERTY(BlueprintReadOnly)
-	TObjectPtr<UObject> Icon = nullptr;
+  UPROPERTY(BlueprintReadOnly)
+  TObjectPtr<UObject> Icon = nullptr;
 
-	UPROPERTY()
-	TObjectPtr<UUserWidget> AllocatedWidget = nullptr;
+  UPROPERTY()
+  TObjectPtr<UUserWidget> AllocatedWidget = nullptr;
 
-	int32 SequenceID = 0;
+  int32 SequenceID = 0;
 
-	bool bFinishedLoading = false;
+  bool bFinishedLoading = false;
 
-	void CancelDisplay();
+  void CancelDisplay();
 };
 
 /**
- * 
+ *
  */
 UCLASS(BlueprintType)
 class ULyraAccoladeHostWidget : public UCommonUserWidget, public FAsyncMixin
 {
-	GENERATED_BODY()
+  GENERATED_BODY()
 
 public:
-	// The location tag (used to filter incoming messages to only display the appropriate accolades in a given location)
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	FGameplayTag LocationName;
+  // The location tag (used to filter incoming messages to only display the appropriate accolades in a given location)
+  UPROPERTY(EditAnywhere, BlueprintReadOnly)
+  FGameplayTag LocationName;
 
-	//~UUserWidget interface
-	virtual void NativeConstruct() override;
-	virtual void NativeDestruct() override;
-	//~End of UUserWidget interface
+  //~UUserWidget interface
+  virtual void NativeConstruct() override;
+  virtual void NativeDestruct() override;
+  //~End of UUserWidget interface
 
-	UFUNCTION(BlueprintImplementableEvent)
-	void DestroyAccoladeWidget(UUserWidget* Widget);
+  UFUNCTION(BlueprintImplementableEvent)
+  void DestroyAccoladeWidget(UUserWidget* Widget);
 
-	UFUNCTION(BlueprintImplementableEvent)
-	UUserWidget* CreateAccoladeWidget(const FPendingAccoladeEntry& Entry);
+  UFUNCTION(BlueprintImplementableEvent)
+  UUserWidget* CreateAccoladeWidget(const FPendingAccoladeEntry& Entry);
 
 protected:
-	UPROPERTY(BlueprintReadWrite, Transient, Category = "AccoladeWidgetPool")
-	TMap<TObjectPtr<UClass>, TObjectPtr<UAccoladeToastBase>> AccoladeWidgetPool;
+  UPROPERTY(BlueprintReadWrite, Transient, Category = "AccoladeWidgetPool")
+  TMap<TObjectPtr<UClass>, TObjectPtr<UAccoladeToastBase>> AccoladeWidgetPool;
 
 private:
-	FGameplayMessageListenerHandle ListenerHandle;
+  FGameplayMessageListenerHandle ListenerHandle;
 
-	int32 NextDisplaySequenceID = 0;
-	int32 AllocatedSequenceID = 0;
+  int32 NextDisplaySequenceID = 0;
+  int32 AllocatedSequenceID = 0;
 
-	FTimerHandle NextTimeToReconsiderHandle;
+  FTimerHandle NextTimeToReconsiderHandle;
 
-	// List of async pending load accolades (which might come in the wrong order due to the row read)
-	UPROPERTY(Transient)
-	TArray<FPendingAccoladeEntry> PendingAccoladeLoads;
+  // List of async pending load accolades (which might come in the wrong order due to the row read)
+  UPROPERTY(Transient)
+  TArray<FPendingAccoladeEntry> PendingAccoladeLoads;
 
-	// List of pending accolades (due to one at a time display duration; the first one in the list is the current visible one)
-	UPROPERTY(Transient)
-	TArray<FPendingAccoladeEntry> PendingAccoladeDisplays;
+  // List of pending accolades (due to one at a time display duration; the first one in the list is the current visible one)
+  UPROPERTY(Transient)
+  TArray<FPendingAccoladeEntry> PendingAccoladeDisplays;
 
 
-	void OnNotificationMessage(FGameplayTag Channel, const FLyraNotificationMessage& Notification);
-	void OnRegistryLoadCompleted(const FDataRegistryAcquireResult& AccoladeHandle, int32 SequenceID);
+  void OnNotificationMessage(FGameplayTag Channel, const FLyraNotificationMessage& Notification);
+  void OnRegistryLoadCompleted(const FDataRegistryAcquireResult& AccoladeHandle, int32 SequenceID);
 
-	void ConsiderLoadedAccolades();
-	void PopDisplayedAccolade();
-	void ProcessLoadedAccolade(const FPendingAccoladeEntry& Entry);
-	void DisplayNextAccolade();
+  void ConsiderLoadedAccolades();
+  void PopDisplayedAccolade();
+  void ProcessLoadedAccolade(const FPendingAccoladeEntry& Entry);
+  void DisplayNextAccolade();
 };

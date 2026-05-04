@@ -1,5 +1,3 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
 #pragma once
 
 #include "CoreMinimal.h"
@@ -11,10 +9,9 @@ struct FPendingAccoladeEntry;
 UCLASS()
 class UAccoladeToastBase : public UUserWidget
 {
-	GENERATED_BODY()
+  GENERATED_BODY()
 
 public:
-	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
-	void PopulateAccoladeToastWidget(const FPendingAccoladeEntry& Data);
-	
+  UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
+  void PopulateAccoladeToastWidget(const FPendingAccoladeEntry& Data);
 };

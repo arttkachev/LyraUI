@@ -9,15 +9,15 @@ struct FLyraVerbMessage;
 UCLASS()
 class UElimEnemyProcessor : public UGameplayMessageProcessor
 {
-	GENERATED_BODY()
+  GENERATED_BODY()
 
 public:
-	virtual void StartListening() override;
+  virtual void StartListening() override;
 
 protected:
-	UPROPERTY(EditDefaultsOnly)
-	FGameplayTag AccoladeElimEnemyTag;
+  UPROPERTY(EditDefaultsOnly)
+  FGameplayTag AccoladeElimEnemyTag;
 
 private:
-	void OnEnemyEliminationMessage(FGameplayTag Channel, const FLyraVerbMessage& Payload);
+  void OnEnemyEliminationMessage(FGameplayTag Channel, const FLyraVerbMessage& Payload);
 };
