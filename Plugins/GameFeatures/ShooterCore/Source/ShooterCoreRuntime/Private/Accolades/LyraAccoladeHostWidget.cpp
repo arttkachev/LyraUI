@@ -1,11 +1,11 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
 #include "Accolades/LyraAccoladeHostWidget.h"
+#include "Accolades/AccoladeToastBase.h"
 
 #include "DataRegistrySubsystem.h"
 #include "LyraLogChannels.h"
 #include "Messages/LyraNotificationMessage.h"
-#include "Accolades/AccoladeToastBase.h"
 #include "Sound/SoundBase.h"
 #include "TimerManager.h"
 

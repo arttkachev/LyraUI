@@ -68,8 +68,9 @@ public:
 	UUserWidget* CreateAccoladeWidget(const FPendingAccoladeEntry& Entry);
 
 protected:
-	UPROPERTY(BlueprintReadWrite, Category = "AccoladeWidgetPool")
+	UPROPERTY(BlueprintReadWrite, Transient, Category = "AccoladeWidgetPool")
 	TMap<TObjectPtr<UClass>, TObjectPtr<UAccoladeToastBase>> AccoladeWidgetPool;
+
 private:
 	FGameplayMessageListenerHandle ListenerHandle;
 
